@@ -17,8 +17,19 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "aos": "^2.3.4",
         "axios": "^0.19.2",
         "bootstrap": "^4.5.2",
-        "jquery": "^3.5.1"
+        "boxicons": "^2.0.5",
+        "counterup": "^1.0.2",
+        "isotope-layout": "^3.0.6",
+        "jquery": "^3.5.1",
+        "jquery-bridget": "^2.0.1",
+        "jquery-waypoints": "^2.0.5",
+        "jquery.easing": "^1.4.1",
+        "owl.carousel": "^2.3.4",
+        "popper.js": "^1.16.1",
+        "remixicon": "^2.5.0",
+        "venobox": "^1.9.1"
     }
 }
