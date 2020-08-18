@@ -76,6 +76,9 @@ Encore
     })
 
     .autoProvidejQuery()
+    .configureUrlLoader({
+       images : {esModule: false},
+    })
 
 // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

@@ -19,15 +19,26 @@
         {% endblock %}
     </head>
     <body>
-        {% include('header.html.twig') %}
+
+        <div id="vue-header"></div>
 
         {% block body %}
         {% endblock %}
 
-        {% include('footer.html.twig') %}
+       <div id="vue-footer"></div>
 
         {% block javascripts %}
+            <script>
+
+                {% if isIndex is defined and isIndex %}
+                window.isIndex=true;
+                {% else %}
+                window.isIndex =false ;
+                {% endif %}
+
+            </script>
         {{ encore_entry_script_tags('main') }}
         {% endblock %}
+
     </body>
 </html>

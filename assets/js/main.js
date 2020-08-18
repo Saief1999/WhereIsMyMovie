@@ -14,15 +14,30 @@ import "vendor/php-email-form/validate";
 //AOS
 import AOS from "aos";
 //owl.carousel (to get slider for images)
-import "owl.carousel"
+import "owl.carousel";
 //venobox (to show images onclick)
 import "venobox";
 //waypoints (to do something when we scroll to element)
-import "vendor/waypoints/jquery.waypoints.min" /*the yarn version is incompatible*/
+import "vendor/waypoints/jquery.waypoints.min" ;/*the yarn version is incompatible*/
 //counterup(to count up to a specific number )
-import "counterup/jquery.counterup.min" ;
+import "vendor/counterup/counterup.min" ;/*the yarn version might cause issues*/
 //boxicons(high quality icons
 import "boxicons";
+
+
+import Vue from "vue" ;
+import Header from "@/components/header" ;
+import Footer from "@/components/footer"
+//header mounting
+
+new Vue ({
+  render : (h) =>h(Header)
+}).$mount("#vue-header")
+
+new Vue ({
+
+  render :(h) =>h(Footer)
+}).$mount("#vue-footer")
 
 
 
@@ -37,7 +52,7 @@ import "boxicons";
   });
 
   // Smooth scroll for the navigation menu and links with .scrollto classes
-  var scrolltoOffset = $('#header').outerHeight() - 2;
+/*  var scrolltoOffset = $('#header').outerHeight() - 2;
   $(document).on('click', '.nav-menu a, .mobile-nav a, .scrollto', function(e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       e.preventDefault();
@@ -67,7 +82,7 @@ import "boxicons";
         return false;
       }
     }
-  });
+  });*/
 
   // Activate smooth scroll on page load with hash links in the url
   $(document).ready(function() {
@@ -97,11 +112,11 @@ import "boxicons";
       $('.mobile-nav-overly').toggle();
     });
 
-    $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
+ /*   $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
       e.preventDefault();
       $(this).next().slideToggle(300);
       $(this).parent().toggleClass('active');
-    });
+    });*/
 
     $(document).click(function(e) {
       var container = $(".mobile-nav, .mobile-nav-toggle");
@@ -118,7 +133,7 @@ import "boxicons";
   }
 
   // Navigation active state on scroll
-  var nav_sections = $('section');
+ /* var nav_sections = $('section');
   var main_nav = $('.nav-menu, #mobile-nav');
 
   $(window).on('scroll', function() {
@@ -138,7 +153,7 @@ import "boxicons";
         $(".nav-menu ul:first li:first").addClass('active');
       }
     });
-  });
+  });*/
 
   // Toggle .header-scrolled class to #header when page is scrolled
   $(window).scroll(function() {
