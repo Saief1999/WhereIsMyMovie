@@ -33,9 +33,10 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </nav><!-- .nav-menu -->
-
-            <a href="#" class="get-started-btn scrollto">Get Started</a>
-
+            <div class="login-btns d-none d-lg-block">
+            <a href="/login" class="login-btn">Login</a>
+            <a href="#" class="get-started-btn ">SignUp</a><!--class+=scrollto-->
+            </div>
         </div>
     </header><!-- End Header -->
 </template>

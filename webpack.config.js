@@ -61,13 +61,12 @@ Encore
     //.enableSassLoader()
 
     .enableVueLoader()
-
+    .enableSassLoader()
 
     .addAliases({
         '@' : path.resolve(__dirname,'assets','js') ,
         vendor : path.resolve(__dirname,'assets','vendor'),
         styles : path.resolve(__dirname,'assets','css')
-
     })
 
     .copyFiles({
@@ -79,6 +78,7 @@ Encore
     .configureUrlLoader({
        images : {esModule: false},
     })
+
 
 // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

@@ -99,12 +99,23 @@ new Vue ({
 
   // Mobile Navigation
   if ($('.nav-menu').length) {
-    var $mobile_nav = $('.nav-menu').clone().prop({
+    const $mobile_nav = $('.nav-menu').clone().prop({
       class: 'mobile-nav d-lg-none'
     });
-    $('body').append($mobile_nav);
-    $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>');
-    $('body').append('<div class="mobile-nav-overly"></div>');
+
+    if ($(".login-btns").length) {
+      const loginBtn=$(".login-btn") ;
+      const signupBtn=$(".get-started-btn") ;
+     $mobile_nav.append("<hr>")
+                .append( `<ul>
+                        <li><a href="${loginBtn.attr('href')}">${loginBtn.text()}</a></li>
+                        <li><a href="${signupBtn.attr('href')}">${signupBtn.text()}</a></li>
+                    </ul>
+                    `);}
+
+    $('body').append($mobile_nav)
+        .prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>')
+        .append('<div class="mobile-nav-overly"></div>');
 
     $(document).on('click', '.mobile-nav-toggle', function(e) {
       $('body').toggleClass('mobile-nav-active');
@@ -119,7 +130,7 @@ new Vue ({
     });*/
 
     $(document).click(function(e) {
-      var container = $(".mobile-nav, .mobile-nav-toggle");
+      const container = $(".mobile-nav, .mobile-nav-toggle");
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
           $('body').removeClass('mobile-nav-active');
@@ -204,7 +215,7 @@ new Vue ({
 
   // Porfolio isotope and filter
   $(window).on('load', function() {
-    var portfolioIsotope = $('.portfolio-container').isotope({
+    const portfolioIsotope = $('.portfolio-container').isotope({
       itemSelector: '.portfolio-item'
     });
 
