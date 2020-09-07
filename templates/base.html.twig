@@ -3,16 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="descriptison">
+        <meta content="" name="description">
         <meta content="" name="keywords">
 
         <!-- Material design -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-
         <!-- Favicons -->
+
         <link href="{{ asset( 'build/img/favicon.webp' ) }}" rel="icon">
         <link href="{{ asset( 'build/img/apple-touch-icon.png' ) }}" rel="apple-touch-icon">
+
+        <!--Google API -->
+
+        <meta name="google-signin-client_id" content="whereismymovie.apps.googleusercontent.com">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -32,6 +36,8 @@
        <div id="vue-footer"></div>
 
         {% block javascripts %}
+            <!--Google API-->
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
             <script>
 
                 {% if isIndex is defined and isIndex %}
@@ -40,6 +46,24 @@
                 window.isIndex =false ;
                 {% endif %}
 
+            </script>
+            <script>
+                window.user={
+                    'username':null,
+                    'role':'anon'
+                }
+                {% if (app.user) and app.user.roles[0]=="ROLE_REG_USER" %}
+                 window.user={
+                     'username':'{{ app.user.login }}',
+                     'role':'user'
+                        }
+                {% endif %}
+            </script>
+            <script>
+                window.flash={} ;
+                window.flash["success"] =JSON.parse("{{ app.session.flashBag.get("success") |json_encode|e('js')}}") ;
+                window.flash["error"] =JSON.parse("{{ app.session.flashBag.get("error") |json_encode|e('js')}}") ;
+                window.flash["info"] = JSON.parse("{{ app.session.flashBag.get("info")|json_encode|e('js') }}");
             </script>
         {{ encore_entry_script_tags('main') }}
         {% endblock %}

@@ -12,6 +12,7 @@ class PlanningsController extends AbstractController
      */
     public function index()
     {
-       return $this->render("inner-page.html.twig");
+        $this->addFlash("success","Simple Success message");
+       return $this->render("plannings/index.html.twig");
     }
 }

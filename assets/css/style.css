@@ -155,6 +155,8 @@ h1, h2, h3, h4, h5, h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /* Desktop Navigation */
+
+
 .nav-menu ul {
   margin: 0;
   padding: 0;
@@ -262,6 +264,30 @@ h1, h2, h3, h4, h5, h6 {
     content: "\ea9d";
   }
 }
+/* Dropdown*/
+
+
+
+
+/*Login Button*/
+.dropdown-btn {
+  color: #fff;
+  border-radius: 4px;
+  padding: 7px 25px 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+  border: 2px solid #fff;
+  margin-right: 10px;
+}
+
+.login-btn:hover {
+  background: #fff;
+  color: #343a40;
+}
+
+
 /*Login Button*/
 .login-btn {
   color: #fff;
@@ -1318,7 +1344,7 @@ section {
 # Breadcrumbs
 --------------------------------------------------------------*/
 .breadcrumbs {
-  padding: 15px 0;
+  padding: 5px 0;
   background: whitesmoke;
   min-height: 40px;
   margin-top: 74px;
@@ -1602,3 +1628,6 @@ section {
   font-size: 13px;
   color: #fff;
 }
+
+
+

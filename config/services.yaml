@@ -29,3 +29,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # This section allows you to access via the container
+    # '.main' must match the firewall provider key
+    app.rememberme.services:
+        alias: security.authentication.rememberme.services.simplehash.main
+        public: true
+
+    # This section enables autowiring of the Remember Me Service
+    Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface: '@app.rememberme.services'

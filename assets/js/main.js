@@ -24,23 +24,21 @@ import "vendor/counterup/counterup.min" ;/*the yarn version might cause issues*/
 //boxicons(high quality icons
 import "boxicons";
 
-
 import Vue from "vue" ;
+import VueRouter from "vue-router";
+
 import Header from "@/components/header" ;
 import Footer from "@/components/footer"
-//header mounting
 
+
+//header and footer
 new Vue ({
   render : (h) =>h(Header)
 }).$mount("#vue-header")
 
 new Vue ({
-
   render :(h) =>h(Footer)
 }).$mount("#vue-footer")
-
-
-
 
   // Preloader
   $(window).on('load', function() {
@@ -123,11 +121,11 @@ new Vue ({
       $('.mobile-nav-overly').toggle();
     });
 
- /*   $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
+    $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
       e.preventDefault();
       $(this).next().slideToggle(300);
       $(this).parent().toggleClass('active');
-    });*/
+    });
 
     $(document).click(function(e) {
       const container = $(".mobile-nav, .mobile-nav-toggle");

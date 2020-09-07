@@ -1,6 +1,4 @@
-
 {% extends 'base.html.twig' %}
-
 
 {% block body %}
   <main id="main">
@@ -13,7 +11,7 @@
           {% block innerHeader %}
           <h2>Inner Page</h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li>Inner Page</li>
           </ol>
           {% endblock %}
@@ -22,12 +20,11 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
-    <section class="inner-page">
-      <div class="container">
-{% block main %} {% endblock %}
+    <div class="inner-page">
+      <div>
+            {% block main %} {% endblock %}
       </div>
-    </section>
-
+    </div>
   </main><!-- End #main -->
 
 {% endblock %}

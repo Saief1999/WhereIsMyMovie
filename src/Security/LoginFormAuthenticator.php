@@ -4,11 +4,13 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -18,6 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
+use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
@@ -30,28 +33,29 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $rememberMeServices;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder,RememberMeServicesInterface $rememberMeServices)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->rememberMeServices = $rememberMeServices ;
     }
 
     public function supports(Request $request)
-    {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+    {   return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
     public function getCredentials(Request $request)
     {
-        $credentials = [
-            'email' => $request->request->get('email'),
-            'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
-        ];
+            $credentials=[
+                'email'=>$request->request->get("email"),
+                'password'=>$request->request->get("password"),
+                'csrf_token'=>$request->request->get("_csrf_token")
+            ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['email']
@@ -91,13 +95,41 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
-    {
+    {    if (strpos($request->headers->get('Content-Type'), 'multipart/form-data')=== 0)
+        {
+          /*  //setting Up remember me
+            $rememeberMe = $request->request->get("_remember_me") ;
+
+            // Set the remember me token
+            if( $rememeberMe ){
+
+                $this->rememberMeServices->loginSuccess(
+                    $request,
+                    $response = new JsonResponse( ['success' => true]),
+                    $token
+                );
+            }*/
+            return new JsonResponse(['success' => true]);
+        }
+    else {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+        return new RedirectResponse($this->urlGenerator->generate('home'));
+    }
+    }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
+        if (strpos($request->headers->get('Content-Type'), 'multipart/form-data')=== 0)
+            return new JsonResponse(['success' => false, 'message' =>$exception->getMessageKey()] ); // data to return via JSON
+
+        else {
+            if ($request->hasSession()) {
+                $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);}
+            return new RedirectResponse( $this->urlGenerator->generate( 'app_login' ) );
+        }
     }
 
     protected function getLoginUrl()

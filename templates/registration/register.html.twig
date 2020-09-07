@@ -1,0 +1,25 @@
+{% extends 'inner-page.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('signup') }}
+{% endblock %}
+
+{% block innerHeader %}
+    <h2>SignUp Page</h2>
+    <ol>
+        <li><a href="/">Home</a></li>
+        <li>Sign Up</li>
+    </ol>
+{% endblock %}
+{% block main %}
+    <div id="vue-signup">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('signup') }}
+{% endblock %}

@@ -1,6 +1,8 @@
 import Vue from "vue" ;
-import Test from "@/pages/test/test" ;
+import vuetify from "@/plugins/vuetify";
 
+import Test from "@/pages/test/test" ;
 new Vue({
-render : (h)=>h(Test)
+    vuetify,
+    render : (h)=>h(Test)
 }).$mount("#test")

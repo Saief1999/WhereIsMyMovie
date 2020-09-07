@@ -1,5 +1,6 @@
-var Encore = require('@symfony/webpack-encore');
-var path = require('path');
+let Encore = require('@symfony/webpack-encore');
+let VuetifyLoaderPlugin=require("vuetify-loader/lib/plugin");
+let path = require('path');
 
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -25,11 +26,12 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
     .addEntry('main','./assets/js/main.js')
     .addEntry('test','./assets/js/test.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('login','./assets/js/login.js')
+    .addEntry('plannings','./assets/js/plannings.js')
+    .addEntry('signup','./assets/js/signup.js')
+
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -61,12 +63,16 @@ Encore
     //.enableSassLoader()
 
     .enableVueLoader()
-    .enableSassLoader()
+    .addPlugin(new VuetifyLoaderPlugin())
+    .enableSassLoader(options => {
+        options.implementation = require('sass')
+    })
 
     .addAliases({
         '@' : path.resolve(__dirname,'assets','js') ,
         vendor : path.resolve(__dirname,'assets','vendor'),
-        styles : path.resolve(__dirname,'assets','css')
+        styles : path.resolve(__dirname,'assets','css') ,
+        'js-images': path.resolve(__dirname,'assets','img')
     })
 
     .copyFiles({
