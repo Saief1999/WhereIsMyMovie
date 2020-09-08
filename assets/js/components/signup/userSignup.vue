@@ -1,14 +1,13 @@
 <template>
-       <v-container>
-
+    <v-container class="pa-5">
             <v-form
                     ref="form"
                     v-model="valid"
                     :lazy-validation="lazy"
                     method="POST"
                     @submit.prevent="validate"
-                    id="login-form">
-                <v-card-text>
+                    id="user-reg-form">
+
                     <v-alert v-if="errorMessage.length!==0" type="error" dense class="multi-line">
                         {{errorMessage}}
                     </v-alert>
@@ -78,14 +77,11 @@
 
                         </v-select>
 
-                </v-card-text>
-                <v-card-actions>
                     <v-row>
                         <v-col cols="3" class="mx-auto">
                             <v-btn
                                     :disabled="!valid"
                                     color="warning"
-                                    class="mr-4"
                                     type="submit"
                                     block
                                     :loading="isLoading">
@@ -93,8 +89,6 @@
                             </v-btn>
                         </v-col>
                     </v-row>
-
-                </v-card-actions>
             </v-form>
     </v-container>
 </template>

@@ -15,7 +15,7 @@
 
             <v-stepper-items>
                 <v-stepper-content step="1">
-                    <v-card
+ <!--                   <v-card
                             class="mb-12"
                             color="grey lighten-1"
                             height="200px"></v-card>
@@ -25,22 +25,12 @@
                             @click="e1 = 2">
                         Continue
                     </v-btn>
-                    <v-btn text>Cancel</v-btn>
+                    <v-btn text>Cancel</v-btn>-->
+                    <owner-general v-on:pagechange="e1=$event"></owner-general>
                 </v-stepper-content>
 
                 <v-stepper-content step="2">
-                    <v-card
-                            class="mb-12"
-                            color="grey lighten-1"
-                            height="200px">
-                    </v-card>
-
-                    <v-btn
-                            color="primary" @click="e1=1">
-                        Submit
-                    </v-btn>
-
-                    <v-btn text>Cancel</v-btn>
+                    <owner-cinema v-on:pagechange="e1=$event"></owner-cinema>
                 </v-stepper-content>
 
                 <v-stepper-content step="3">
@@ -65,6 +55,9 @@
 
 
 <script>
+
+    import OwnerGeneral from "@/components/signup/ownerGeneral";
+    import OwnerCinema from "@/components/signup/ownerCinema";
     export default {
         name : 'OwnerSignup',
         data () {
@@ -72,5 +65,6 @@
                 e1: 1,
             }
         },
+        components: {OwnerGeneral,OwnerCinema}
     }
 </script>
